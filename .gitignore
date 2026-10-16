@@ -1,0 +1,22 @@
+# Entornos, cachés y archivos locales
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# No incluir fuentes, archivos comprimidos ni respaldos en Git
+backups/
+*.zip
+data/**
+!data/processed/
+!data/processed/funcionarios_gobpe_consolidado.csv
