@@ -12,12 +12,14 @@ RANGOS = ['Todos','Menos de 1 año','De 1 a menos de 3 años','De 3 a menos de 5
 
 
 def fuente_configurada():
-    modo = os.environ.get('RADAR_SOURCE', 'sqlite').lower()
+    modo = os.environ.get('RADAR_SOURCE', '').lower()
+    if not modo:
+        modo = 'sqlite' if DB_PATH.exists() else 'snapshot'
     if modo not in ('sqlite','snapshot'):
         raise ValueError('RADAR_SOURCE debe ser sqlite o snapshot')
     valor = os.environ.get('RADAR_SNAPSHOT') if modo == 'snapshot' else os.environ.get('RADAR_DB')
     if modo == 'snapshot' and not valor:
-        raise ValueError('Define RADAR_SNAPSHOT con la ruta de una instantánea validada')
+        valor = 'data/public/funcionarios_20261018T213022990895Z.csv.gz'
     ruta = Path(valor) if valor else DB_PATH
     if not ruta.is_absolute():
         ruta = ROOT / ruta
