@@ -1,13 +1,31 @@
-"""Lanzador compatible; la implementación vive en la entrada principal."""
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-# Streamlit prepends the script directory; the repository must take priority.
-while str(ROOT) in sys.path:
-    sys.path.remove(str(ROOT))
-sys.path.insert(0, str(ROOT))
-from app.Panel_de_funcionarios import main
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-if __name__ == '__main__':
-    main()
+import streamlit as st
+
+st.set_page_config(
+    page_title="Radar Estado Per?",
+    page_icon="???",
+    layout="wide"
+)
+
+paginas = [
+    st.Page(
+        "Panel_de_funcionarios.py",
+        title="Panel de funcionarios",
+        icon=":material/dashboard:",
+        default=True
+    ),
+    st.Page(
+        "pages/1_Fichas_profesionales.py",
+        title="Fichas profesionales",
+        icon=":material/badge:"
+    )
+]
+
+navegacion = st.navigation(paginas)
+navegacion.run()
