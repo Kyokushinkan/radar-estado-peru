@@ -1,0 +1,44 @@
+{
+  "version_esquema": 1,
+  "version_aplicacion": "2.3",
+  "fecha_exportacion_utc": "2026-10-18T21:30:22.991069+00:00",
+  "fecha_referencia_calidad": "2026-10-18",
+  "archivo": "funcionarios_20261018T213022990895Z.csv.gz",
+  "registros": 41866,
+  "columnas": [
+    "id_funcionario",
+    "nombre",
+    "cargo",
+    "entidad",
+    "entidad_id",
+    "fecha_actualizacion",
+    "fecha_consulta",
+    "perfil",
+    "fecha_inicio",
+    "fecha_fin",
+    "resumen",
+    "formacion_academica",
+    "experiencia_profesional",
+    "norma",
+    "declaracion_jurada",
+    "estado",
+    "calidad_payload"
+  ],
+  "cobertura": {
+    "registros": 41866,
+    "perfiles_ok": 41786,
+    "con_fecha_inicio": 40464,
+    "fechas_inicio_validas": 40464,
+    "con_declaracion_jurada": 737,
+    "payloads_invalidos": 0
+  },
+  "calidad_fechas_ok": {
+    "Calculable": 40459,
+    "Sin dato": 1322,
+    "Fecha futura": 5
+  },
+  "sha256": "f2f05740580f50579e21820a819654835915124e94138c63d89b47eeae3dee89",
+  "bytes_comprimidos": 3950050,
+  "segundos_lectura_y_normalizacion": 6.663,
+  "nota": "Instantánea consistente de perfiles públicos; no confirma vigencia laboral. Cobertura sobre perfiles OK."
+}

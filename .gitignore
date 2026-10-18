@@ -20,3 +20,24 @@ backups/
 data/**
 !data/processed/
 !data/processed/funcionarios_gobpe_consolidado.csv
+
+# Extracción V2: publicación pendiente de autorización explícita
+data/enriched/
+reports/extraccion_*/
+reports/extraccion_*.json
+reports/extraccion_*.md
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.jsonl
+*.tmp
+
+# Radar Estado Peru V2.3 - instantanea publica aprobada
+!data/
+!data/public/
+!data/public/funcionarios_20261018T213022990895Z.csv.gz
+!data/public/funcionarios_20261018T213022990895Z.csv.gz.manifest.json
+
+# Respaldos locales de edicion
+*.bak
+*.bak.*
