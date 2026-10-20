@@ -27,8 +27,15 @@ def oficial(url):
 def cargar_datos(modo, ruta, referencia):
     if modo == "snapshot":
         df = leer_instantanea(ruta)
-        df["estado_declaracion"] = "sin_control"
-        df["declaracion_jurada"] = ""
+        from app.declaraciones_v24 import url_dji_valida
+
+        enlaces = df["declaracion_jurada"].fillna("").astype(str).str.strip()
+        validos = enlaces.map(url_dji_valida)
+
+        df["declaracion_jurada"] = enlaces.where(validos, "")
+        df["estado_declaracion"] = validos.map(
+            {True: "enlace_registrado", False: "sin_control"}
+        )
     else:
         c = sqlite3.connect(Path(ruta).resolve().as_uri() + "?mode=ro", uri=True, timeout=1)
         inicio = time.monotonic()
