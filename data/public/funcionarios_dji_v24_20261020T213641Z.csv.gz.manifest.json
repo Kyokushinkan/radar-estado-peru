@@ -1,0 +1,44 @@
+{
+  "version_esquema": 1,
+  "version_aplicacion": "2.4",
+  "fecha_exportacion_utc": "2026-10-20T21:40:11.119886+00:00",
+  "fecha_referencia_calidad": "2026-10-18",
+  "archivo": "funcionarios_dji_v24_20261020T213641Z.csv.gz",
+  "registros": 41866,
+  "columnas": [
+    "id_funcionario",
+    "nombre",
+    "cargo",
+    "entidad",
+    "entidad_id",
+    "fecha_actualizacion",
+    "fecha_consulta",
+    "perfil",
+    "fecha_inicio",
+    "fecha_fin",
+    "resumen",
+    "formacion_academica",
+    "experiencia_profesional",
+    "norma",
+    "declaracion_jurada",
+    "estado",
+    "calidad_payload"
+  ],
+  "cobertura": {
+    "registros": 41866,
+    "perfiles_ok": 41786,
+    "con_fecha_inicio": 40464,
+    "fechas_inicio_validas": 40464,
+    "con_declaracion_jurada": 41465,
+    "payloads_invalidos": 0
+  },
+  "calidad_fechas_ok": {
+    "Calculable": 40459,
+    "Sin dato": 1322,
+    "Fecha futura": 5
+  },
+  "sha256": "dcdf851e58c6142fe7cec8635040e8cbeeb6c31f56544ec22595e59f17b7fe28",
+  "bytes_comprimidos": 4305535,
+  "segundos_lectura_y_normalizacion": 6.663,
+  "nota": "Instant?nea de perfiles p?blicos con enlaces DJI de formato admitido asociados por identificador. No confirma la existencia, el contenido ni la vigencia de las declaraciones o los v?nculos laborales."
+}

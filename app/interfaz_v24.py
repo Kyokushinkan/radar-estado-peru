@@ -22,7 +22,7 @@ def fuente_configurada():
         raise ValueError('RADAR_SOURCE debe ser sqlite o snapshot')
     valor = os.environ.get('RADAR_SNAPSHOT') if modo == 'snapshot' else os.environ.get('RADAR_DB')
     if modo == 'snapshot' and not valor:
-        valor = 'data/public/funcionarios_20261018T213022990895Z.csv.gz'
+        valor = 'data/public/funcionarios_dji_v24_20261020T213641Z.csv.gz'
     ruta = Path(valor) if valor else DB_PATH
     return modo, ruta if ruta.is_absolute() else ROOT / ruta
 
