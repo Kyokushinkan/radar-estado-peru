@@ -405,6 +405,7 @@ def main(fichas=False):
         st.stop()
     seccion = estructura(len(df), actualizacion, fichas)
     if seccion == "Movimientos observados":
+        mostrar_estado_consultas_v254()
         if modo == "sqlite":
             mostrar_movimientos(ruta)
         else:
@@ -461,3 +462,67 @@ def main(fichas=False):
         st.caption('La actualización vuelve a leer la fuente; no ejecuta extracción ni modifica la base.')
     st.divider()
     st.caption('Radar Estado Perú · V2.5.3 en desarrollo · Fuente: Gob.pe / Contraloría · Consulta histórica')
+
+
+from pathlib import Path
+import json
+
+def mostrar_estado_consultas_v254():
+    """Indicadores del piloto; no representan cobertura nacional."""
+    ruta = ROOT / "data/public/estado_consultas_v254.json"
+
+    if not ruta.is_file():
+        st.info("Estado de consultas V2.5.4 no disponible.")
+        return
+
+    try:
+        datos = json.loads(ruta.read_text(encoding="utf-8"))
+
+        if (
+            datos.get("version") != "2.5.4"
+            or datos.get("tipo") != "estado_consultas"
+            or datos.get("alcance") != "piloto_aislado_5_funcionarios"
+        ):
+            raise ValueError("Formato de seguimiento inesperado")
+
+        st.subheader("Seguimiento de consultas oficiales")
+        st.caption(
+            "Piloto aislado de cinco funcionarios. "
+            "No representa una revisión del directorio completo."
+        )
+
+        c1, c2, c3, c4 = st.columns(4)
+
+        c1.metric(
+            "Consultados",
+            datos["funcionarios_consultados"]
+        )
+        c2.metric(
+            "Consultas válidas",
+            datos["consultas_validas"]
+        )
+        c3.metric(
+            "Con error",
+            datos["consultas_con_error"]
+        )
+        c4.metric(
+            "Movimientos",
+            datos["movimientos_detectados_laboratorio"]
+        )
+
+        fecha = datos.get("fecha_ultima_consulta")
+        st.caption(
+            "Última consulta registrada: "
+            + (str(fecha) if fecha else "No informada")
+        )
+
+        if not datos.get("actualizacion_automatica"):
+            st.info(
+                "Actualización automática pendiente de habilitación."
+            )
+
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        st.warning(
+            "No se pudo validar el estado de consultas V2.5.4: "
+            + str(error)
+        )
