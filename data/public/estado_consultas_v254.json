@@ -1,0 +1,18 @@
+{
+  "version": "2.5.4",
+  "tipo": "estado_consultas",
+  "fecha_ultima_consulta": "2026-11-02T06:10:56.137532+00:00",
+  "funcionarios_consultados": 5,
+  "consultas_validas": 4,
+  "consultas_con_error": 1,
+  "observaciones_integradas_laboratorio": 4,
+  "movimientos_detectados_laboratorio": 0,
+  "alcance": "piloto_aislado_5_funcionarios",
+  "actualizacion_automatica": false,
+  "errores": [
+    {
+      "id_funcionario": "258670",
+      "resultado": "error_http"
+    }
+  ]
+}
