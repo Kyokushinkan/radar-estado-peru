@@ -55,7 +55,27 @@ def cargar_movimientos(ruta, limite=1000):
         ).fetchone()
 
         if not existe:
-            return []
+            # Historial real V2.5.3: el motor conserva la tabla
+            # movimientos. Sin registros, no hay cambios acreditados.
+            historica = conexion.execute(
+                "SELECT 1 FROM sqlite_master "
+                "WHERE type='table' AND name='movimientos'"
+            ).fetchone()
+
+            if not historica:
+                return []
+
+            total = conexion.execute(
+                "SELECT COUNT(*) FROM movimientos"
+            ).fetchone()[0]
+
+            if total == 0:
+                return []
+
+            raise ValueError(
+                "El historial contiene movimientos en un esquema "
+                "que requiere adaptación antes de presentarse."
+            )
 
         consulta = (
             "SELECT " + ", ".join(CAMPOS)
