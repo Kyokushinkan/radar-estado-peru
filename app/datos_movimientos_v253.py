@@ -139,3 +139,53 @@ def filtrar_movimientos(
             item.get("fecha_deteccion", "")
         )[:10] >= fecha_desde)
     ]
+
+def cargar_movimientos_json(ruta, limite=1000):
+    """Lee la exportacion JSON validada, sin modificar su origen."""
+    archivo = Path(ruta).resolve()
+    if not archivo.is_file():
+        raise FileNotFoundError(str(archivo))
+
+    with archivo.open("r", encoding="utf-8") as f:
+        documento = json.load(f)
+
+    if documento.get("version") != "2.5.3":
+        raise ValueError("VERSION_JSON_INCORRECTA")
+
+    if documento.get("tipo") != "movimientos_observados":
+        raise ValueError("TIPO_JSON_INCORRECTO")
+
+    registros = documento.get("movimientos")
+    if not isinstance(registros, list):
+        raise ValueError("MOVIMIENTOS_JSON_INVALIDOS")
+
+    if documento.get("total") != len(registros):
+        raise ValueError("TOTAL_JSON_INCONSISTENTE")
+
+    limite = int(limite)
+    if not 1 <= limite <= 10000:
+        raise ValueError("LIMITE_INVALIDO")
+
+    salida = []
+    for item in registros[:limite]:
+        if not isinstance(item, dict):
+            raise ValueError("REGISTRO_JSON_INVALIDO")
+
+        registro = dict(item)
+        registro["perfil_oficial"] = (
+            registro.get("perfil", "")
+            if enlace_oficial(registro.get("perfil")) else ""
+        )
+        registro["fuente_oficial"] = (
+            registro.get("fuente", "")
+            if enlace_oficial(registro.get("fuente")) else ""
+        )
+        registro["clasificacion"] = "cambio_observado"
+        registro["estado_presentacion"] = (
+            "Cambio observado; verificacion oficial pendiente"
+            if registro.get("verificacion_oficial") == "pendiente"
+            else "Registro requiere revision"
+        )
+        salida.append(registro)
+
+    return salida

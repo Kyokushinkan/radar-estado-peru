@@ -6,6 +6,7 @@ import streamlit as st
 
 from app.datos_movimientos_v253 import (
     cargar_movimientos,
+    cargar_movimientos_json,
     filtrar_movimientos,
 )
 
@@ -46,7 +47,7 @@ def mostrar(ruta):
     )
 
     try:
-        registros = cargar_movimientos(ruta)
+        registros = (cargar_movimientos_json(ruta) if str(ruta).lower().endswith('.json') else cargar_movimientos(ruta))
     except (OSError, ValueError, TypeError, sqlite3.Error) as error:
         st.error("No fue posible leer los movimientos: " + str(error))
         return
@@ -116,7 +117,7 @@ def mostrar(ruta):
 
     st.caption(
         "Resultados: " + str(len(filtrados))
-        + ". Fuente: observaciones almacenadas en SQLite."
+        + ". Fuente: historial de observaciones y exportacion validada."
     )
 
     tabla = preparar_tabla(filtrados)

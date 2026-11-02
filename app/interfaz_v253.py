@@ -405,13 +405,11 @@ def main(fichas=False):
         st.stop()
     seccion = estructura(len(df), actualizacion, fichas)
     if seccion == "Movimientos observados":
-        if modo != "sqlite":
-            st.info(
-                "Movimientos observados requiere una fuente SQLite "
-                "con historial disponible."
-            )
-        else:
+        if modo == "sqlite":
             mostrar_movimientos(ruta)
+        else:
+            ruta_movimientos = ROOT / "data/public/movimientos_observados_v253.json"
+            mostrar_movimientos(ruta_movimientos)
         return
     if seccion == 'Inicio':
         st.header('Información pública, en un solo lugar')
